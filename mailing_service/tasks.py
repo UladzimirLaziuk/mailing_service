@@ -24,9 +24,7 @@ def write_result_status(pk, response):
     models.MailingModel.objects.filter(id=pk).update(**{'status_message ': data_status})
     return
 
-def send_request(pk, list_clients:List, message:str=None, **kwargs):
-    path = 'https://probe.fbrq.cloud/v1/send/{pk}'
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE4Njg3MjksImlzcyI6ImZhYnJpcXVlIiwibmFtZSI6InVsYWR6aW1pcmJlbCJ9.NankvYM-GJkxeiHBBf5QOWKWRKZnarEQ1xxL2X_pwo4'
+def send_request(list_clients:List, message:str=None, **kwargs):
     token = settings.TOKEN_JWT
     headers = {
         'Authorization': f'Bearer {token}',
@@ -36,7 +34,7 @@ def send_request(pk, list_clients:List, message:str=None, **kwargs):
 
     for dict_client in  list_clients:
         data = {'id': dict_client.id, 'phone': dict_client.get('phone'), 'text': message}
-        path = 'https://probe.fbrq.cloud/v1/send/{dict_client.id}'
+        path = settings.PATH_SERVER  + f'{dict_client.id}'
         response = requests.post(path, json=data, headers=headers)
     return response.status_code
 

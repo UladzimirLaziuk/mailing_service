@@ -133,7 +133,7 @@ CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://localhost:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://localhost:6379/1")
 CELERY_IMPORTS = ('mailing_service.tasks',)
 TOKEN_JWT = os.environ.get("TOKEN_JWT")
-
+PATH_SERVER = os.environ.get('PATH_SERVER')
 logger_level = "INFO" if DEBUG  else "ERROR"
 
 LOGGING = {
